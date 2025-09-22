@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Calendario Junio 2025</title>
+  <title>Connections</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -39,6 +39,10 @@
 
     .pink {
       background-color: pink;
+    }
+
+    .gray{
+      background-color: gray;
     }
 
     .blue {
@@ -83,7 +87,7 @@
 </head>
 <body>
 
-<h1>Calendario de Junio 2025</h1>
+<h1>Connections Junio 2025</h1>
 
 <div class="calendar" id="calendar">
   <!-- Cabecera de días de la semana -->
@@ -119,6 +123,7 @@
     calendar.appendChild(empty);
   }
 
+winners=[0,1,-1,0,-1,0,0,0,0,-1,-1,1,1,1,-1,1,1,1,1,1,-1,-1,1,1,-1,1,1,-1,1,1]
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement('div');
     cell.classList.add('day');
@@ -127,8 +132,9 @@
     cell.addEventListener('click', function () {
       if (cell.textContent === '?') {
         cell.textContent = day;
-        winners=[0]
-        const colorClass = Math.random() < 0.5 ? 'blue' : 'pink';
+        if(winners[day-1]<0)colorClass='blue'
+        if(winners[day-1]>0)colorClass='pink'
+        if(winners[day-1]==0)colorClass='gray'
         cell.classList.add(colorClass);
       }
 
