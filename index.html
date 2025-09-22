@@ -127,7 +127,7 @@
     cell.addEventListener('click', function () {
       if (cell.textContent === '?') {
         cell.textContent = day;
-        winners=
+        winners=[0]
         const colorClass = Math.random() < 0.5 ? 'blue' : 'pink';
         cell.classList.add(colorClass);
       }
