@@ -131,10 +131,19 @@ winners=[0,1,-1,0,-1,0,0,0,0,-1,-1,1,1,1,-1,1,1,1,1,1,-1,-1,1,1,-1,1,1,-1,1,1]
 
     cell.addEventListener('click', function () {
       if (cell.textContent === '?') {
-        cell.textContent = day;
-        if(winners[day-1]<0)colorClass='blue'
-        if(winners[day-1]>0)colorClass='pink'
-        if(winners[day-1]==0)colorClass='gray'
+        
+        if(winners[day-1]<0){
+          cell.textContent = 'CH';
+          colorClass='blue'}
+
+        if(winners[day-1]>0){
+          cell.textContent = 'CR';
+          colorClass='pink'
+        }
+        if(winners[day-1]==0){
+          cell.textContent = 'E';
+          colorClass='gray'}
+
         cell.classList.add(colorClass);
       }
 
