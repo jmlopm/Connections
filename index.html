@@ -44,6 +44,41 @@
     .blue {
       background-color: lightblue;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .close {
+      color: #333;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      float: right;
+    }
   </style>
 </head>
 <body>
@@ -51,7 +86,7 @@
 <h1>Calendario de Junio 2025</h1>
 
 <div class="calendar" id="calendar">
-  <!-- Días de la semana -->
+  <!-- Cabecera de días de la semana -->
   <div class="day header">Lun</div>
   <div class="day header">Mar</div>
   <div class="day header">Mié</div>
@@ -61,38 +96,63 @@
   <div class="day header">Dom</div>
 </div>
 
+<!-- Modal -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="modalClose">&times;</span>
+    <img id="modalImage" src="" alt="Imagen del día">
+  </div>
+</div>
+
 <script>
   const calendar = document.getElementById('calendar');
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalClose = document.getElementById('modalClose');
 
-  // Junio 2025 empieza en domingo, así que hay que agregar 6 celdas vacías
-  const startDay = new Date(2025, 5, 1).getDay(); // 0 = domingo
+  const startDay = new Date(2025, 5, 1).getDay(); // Junio 2025
   const offset = startDay === 0 ? 6 : startDay - 1;
-
-  // Total de días en junio
   const daysInMonth = 30;
 
-  // Agregar celdas vacías antes del primer día del mes
   for (let i = 0; i < offset; i++) {
     const empty = document.createElement('div');
     calendar.appendChild(empty);
   }
 
-  // Crear días del mes con ?
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement('div');
     cell.classList.add('day');
     cell.textContent = '?';
 
     cell.addEventListener('click', function () {
-      // Solo cambia si aún es '?'
       if (cell.textContent === '?') {
         cell.textContent = day;
+        winners=
         const colorClass = Math.random() < 0.5 ? 'blue' : 'pink';
         cell.classList.add(colorClass);
       }
+
+      // Mostrar imagen en modal
+      const imageSrc = `junio/${day}.png`;
+      modalImage.src = imageSrc;
+      modal.style.display = 'block';
     });
 
     calendar.appendChild(cell);
+  }
+
+  // Cerrar el modal
+  modalClose.onclick = function () {
+    modal.style.display = "none";
+    modalImage.src = "";
+  }
+
+  // También cerrar si se hace clic fuera del contenido
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+      modalImage.src = "";
+    }
   }
 </script>
 
