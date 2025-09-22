@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario Junio 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .day {
+      border: 1px solid #ccc;
+      padding: 20px;
+      cursor: pointer;
+      font-size: 20px;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+
+    .header {
+      font-weight: bold;
+      background-color: #f0f0f0;
+      cursor: default;
+    }
+
+    .pink {
+      background-color: pink;
+    }
+
+    .blue {
+      background-color: lightblue;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Calendario de Junio 2025</h1>
+
+<div class="calendar" id="calendar">
+  <!-- Días de la semana -->
+  <div class="day header">Lun</div>
+  <div class="day header">Mar</div>
+  <div class="day header">Mié</div>
+  <div class="day header">Jue</div>
+  <div class="day header">Vie</div>
+  <div class="day header">Sáb</div>
+  <div class="day header">Dom</div>
+</div>
+
+<script>
+  const calendar = document.getElementById('calendar');
+
+  // Junio 2025 empieza en domingo, así que hay que agregar 6 celdas vacías
+  const startDay = new Date(2025, 5, 1).getDay(); // 0 = domingo
+  const offset = startDay === 0 ? 6 : startDay - 1;
+
+  // Total de días en junio
+  const daysInMonth = 30;
+
+  // Agregar celdas vacías antes del primer día del mes
+  for (let i = 0; i < offset; i++) {
+    const empty = document.createElement('div');
+    calendar.appendChild(empty);
+  }
+
+  // Crear días del mes con ?
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement('div');
+    cell.classList.add('day');
+    cell.textContent = '?';
+
+    cell.addEventListener('click', function () {
+      // Solo cambia si aún es '?'
+      if (cell.textContent === '?') {
+        cell.textContent = day;
+        const colorClass = Math.random() < 0.5 ? 'blue' : 'pink';
+        cell.classList.add(colorClass);
+      }
+    });
+
+    calendar.appendChild(cell);
+  }
+</script>
+
+</body>
+</html>
